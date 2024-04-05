@@ -15,15 +15,20 @@ import DashboardWidget from '../components/DashboardWidget.astro';
         <p id="current-time" class="size-12"></p>
       </div>
       <div class="grid small-grid-1 medium-grid-2 large-grid-3 equal-height">
-        <DashboardWidget />
         <DashboardWidget
-          number="+33"
-          title="Products sold"
+          temp="12"
+          hum="27"
+          title="Remolacha"
         />
         <DashboardWidget
-          number="-120"
-          title="Images deleted"
-          type="error"
+          temp="5"
+          hum="25"
+          title="Tomates"
+        />
+        <DashboardWidget
+          temp="4"
+          hum="32"
+          title="Lechugas"
         />
         <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
         <div class="radius-large space-96" style="border: 4px dashed grey;"></div>

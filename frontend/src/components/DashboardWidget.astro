@@ -1,18 +1,26 @@
 ---
+import { Image } from 'astro:assets';
+import tempImg from '../assets/img/thermometer_465644.png';
+import humImg from '../assets/img/humidity_8923690.png';
+
 const {
-  number = '+54',
-  title = 'New messages',
+  title = 'Invernadero 1',
+  temp = '21',
+  hum = '54',
   type = 'success'
 } = Astro.props
 ---
 
 <div class="dashboard-widget radius-large space-24 elevation-400 space-content type-${type}">
-  <p class="size-48">
-    <strong>{number}</strong>
+  <p class="size-24">
+    <strong>{title}</strong>
   </p>
-  <p class="size-20">
-    <em>{title}</em>
-  </p>
+  <div class="container" data-auto-grid="2" data-grid-center>
+    <Image src={tempImg} alt="placeholder-temp." width="80" height="80"/>
+    <Image src={humImg} alt="placeholder-hum." width="80" height="80"/>
+    <p class="size-16"><em>{temp} Celsius</em></p>
+    <p class="size-16"><em>{hum} %</em></p>
+  </div>
 </div>
 
 <style lang="scss">
