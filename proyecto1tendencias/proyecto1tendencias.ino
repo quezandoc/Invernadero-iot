@@ -29,11 +29,11 @@ void loop() {
   }
   
   if (h < 70 || h > 80){   // si la humedad es mayor a 80 o menor a 70 
-    digitalWrite(LED, HIGH);                     // en alto el pin 12 si la distancia es menor a 10cm
+    digitalWrite(LED, HIGH);               
     Serial.println("Alarma.......");         // envia la palabra Alarma por el puerto serial
   }
   else{
-    digitalWrite(LED, LOW);               // en bajo el pin 12
+    digitalWrite(LED, LOW);               // en bajo el pin 12 si la humedad es menor a 80 o mayor a 70 
   }
 
   delay(2000); //Se espera 2 segundos para seguir leyendo //datos
