@@ -19,21 +19,37 @@ void loop() {
   Serial.println(h);
   Serial.println("Temperatura: ");
   Serial.println(t);
+ 
+  // Caso de tomates
+  if ((t < 16 || t > 27) || (h < 60 || h > 70)) {
+    Serial.print("Alarma--------------- ");
+    digitalWrite(LED, HIGH); // Enciende LED para alarma
+  } else {
+    digitalWrite(LED, LOW); // Apaga LED si no hay alarma
+  }
 
-  if (t >= 15 && t <= 25){  // si la temperatura es mayor a 15 y menor a 25 
-    digitalWrite(LED, LOW);               // en bajo el pin 12
+// Caso de lechugas
+  if ((t < 10 || t > 24) || (h < 50 || h > 70)) {
+    Serial.print("Alarma--------------- ");
+    digitalWrite(LED, HIGH); // Enciende LED para alarma
+  } else {
+    digitalWrite(LED, LOW); // Apaga LED si no hay alarma
   }
-  else {
-    digitalWrite(LED, HIGH);                     // en alto el pin 12 si la temperatura es menor a 15 o mayor a 25 
-    Serial.println("Alarma.......");         // envia la palabra Alarma por el puerto serial
+
+// Caso de zapallo
+  if ((t < 18 || t > 32) || (h < 60 || h > 80)) {
+    Serial.print("Alarma--------------- ");
+    digitalWrite(LED, HIGH); // Enciende LED para alarma
+  } else {
+    digitalWrite(LED, LOW); // Apaga LED si no hay alarma
   }
-  
-  if (h < 70 || h > 80){   // si la humedad es mayor a 80 o menor a 70 
-    digitalWrite(LED, HIGH);               
-    Serial.println("Alarma.......");         // envia la palabra Alarma por el puerto serial
-  }
-  else{
-    digitalWrite(LED, LOW);               // en bajo el pin 12 si la humedad es menor a 80 o mayor a 70 
+
+// Caso de papas
+  if ((t < 10 || t > 22) || (h < 80 || h > 90)) {
+    Serial.print("Alarma--------------- ");
+    digitalWrite(LED, HIGH); // Enciende LED para alarma
+  } else {
+    digitalWrite(LED, LOW); // Apaga LED si no hay alarma
   }
 
   delay(2000); //Se espera 2 segundos para seguir leyendo //datos
