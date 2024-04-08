@@ -10,9 +10,14 @@ const {
   hum = '',
   type = 'success'
 } = Astro.props
+
+let widgetType = type;
+if (temp !== '' && parseFloat(temp) > 24) {
+  widgetType = 'error';
+}
 ---
 
-<div class="dashboard-widget radius-large space-24 elevation-400 space-content type-${type}">
+<div class={`dashboard-widget radius-large space-24 elevation-400 space-content type-${widgetType}`}>
   <p class="size-24">
     <strong>{title}</strong>
   </p>
