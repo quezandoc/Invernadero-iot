@@ -1,8 +1,13 @@
 ---
 import DefaultLayout from '../layouts/DefaultLayout.astro'
 import DashboardWidget from '../components/DashboardWidget.astro';
----
+import { getLastLechugaData } from '../services/firebase';
 
+let lechuga = await getLastLechugaData();
+const interval = setInterval(async () => {
+  lechuga = await getLastLechugaData();
+}, 60000);
+---
 <DefaultLayout title="Dashboard">
   <section>
     <h1>Welcome Astronaut 🧑‍🚀</h1><br>
@@ -16,18 +21,8 @@ import DashboardWidget from '../components/DashboardWidget.astro';
       </div>
       <div class="grid small-grid-1 medium-grid-2 large-grid-3 equal-height">
         <DashboardWidget
-          temp="12"
-          hum="27"
-          title="Remolacha"
-        />
-        <DashboardWidget
-          temp="5"
-          hum="25"
-          title="Tomates"
-        />
-        <DashboardWidget
-          temp="4"
-          hum="32"
+          temp= {lechuga.temperature}
+          hum= {lechuga.humidity}
           title="Lechugas"
         />
         <div class="radius-large space-96" style="border: 4px dashed grey;"></div>
@@ -47,5 +42,5 @@ import DashboardWidget from '../components/DashboardWidget.astro';
 
 <script>
   const date = new Date()
-  document.querySelector('#current-time').innerHTML = `<em>${date.toDateString()}</em>`
+  //document.querySelector('#current-time').innerHTML = `<em>${date.toDateString()}</em>`
 </script>
