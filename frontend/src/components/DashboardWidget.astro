@@ -1,4 +1,39 @@
 ---
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+// Tu configuración de Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyB-nP0BV0qwgK4tE_dMi2W2cihn8Z7rldQ",
+  authDomain: "proyectoinvernadero-14daf.firebaseapp.com",
+  databaseURL: "https://proyectoinvernadero-14daf-default-rtdb.firebaseio.com",
+  projectId: "proyectoinvernadero-14daf",
+  storageBucket: "proyectoinvernadero-14daf.appspot.com",
+  messagingSenderId: "690797436592",
+  appId: "1:690797436592:web:42a62d8fc5e37a2d062575",
+  measurementId: "G-F8XJD7YVV6"
+};
+
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+
+// Obtener datos de la colección "Lechuga"
+const getLechugaData = async () => {
+  const lechugaRef = collection(db, 'Lechuga');
+  const lechugaSnapshot = await getDocs(lechugaRef);
+  lechugaSnapshot.forEach(doc => {
+    const data = doc.data(); // Obtener los datos del documento
+    console.log(data); // Imprimir solo los datos del documento
+  });
+};
+
+// Llamar a la función para obtener y mostrar los datos de la colección "Lechuga"
+console.log("get lechuga");
+getLechugaData();
+
+
 import { Image } from 'astro:assets';
 import tempImg from '../assets/img/thermometer_465644.png';
 import humImg from '../assets/img/humidity_8923690.png';
@@ -9,6 +44,7 @@ const {
   hum = '54',
   type = 'success'
 } = Astro.props
+
 ---
 
 <div class="dashboard-widget radius-large space-24 elevation-400 space-content type-${type}">

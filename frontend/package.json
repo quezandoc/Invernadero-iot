@@ -11,8 +11,12 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@firebase/firestore": "^4.5.1",
     "accessible-astro-components": "^1.5.7",
-    "astro-icon": "^0.7.3"
+    "astro-icon": "^0.7.3",
+    "chart.js": "^3.0.0",
+    "firebase": "^10.10.0",
+    "firebase-admin": "^12.0.0"
   },
   "devDependencies": {
     "astro": "^4.5.16",
