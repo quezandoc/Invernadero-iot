@@ -1,8 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import tempImg from '../assets/img/thermometer_465644.png';
+import tempExc from '../assets/img/calentamiento-excesivo.png';
 import humImg from '../assets/img/humidity_8923690.png';
+
+
 import { getLastLechugaData } from '../services/firebase';
+
+
 
 const {
   title = 'Invernadero 1',
@@ -12,20 +17,25 @@ const {
 } = Astro.props
 
 let widgetType = type;
-if (temp !== '' && parseFloat(temp) > 24) {
+let tempImage = tempImg; // Por defecto, usa tempImg
+let tempText = `${temp} Celsius`; // Texto por defecto para la temperatura
+if (temp !== '' && parseFloat(temp) > 23) {
   widgetType = 'error';
+  tempImage = tempExc; // Si la temperatura es mayor a 23, usa tempExc
+  tempText = `${temp} Celsius // Calor excesivo` ; // Texto por defecto para la temperatura
 }
+
 ---
 
-<div class={`dashboard-widget radius-large space-24 elevation-400 space-content type-${widgetType}`}>
-  <p class="size-24">
+<div className={`dashboard-widget radius-large space-24 elevation-400 space-content type-${widgetType}`}>
+  <p className="size-24">
     <strong>{title}</strong>
   </p>
-  <div class="container" data-auto-grid="2" data-grid-center>
-    <Image src={tempImg} alt="placeholder-temp." width="80" height="80"/>
-    <Image src={humImg} alt="placeholder-hum." width="80" height="80"/>
-    <p class="size-16"><em>{temp} Celsius</em></p>
-    <p class="size-16"><em>{hum} %</em></p>
+  <div className="container" data-auto-grid="2" data-grid-center>
+    <Image src={tempImage} alt="placeholder-temp." width="80" height="80" />
+    <Image src={humImg} alt="placeholder-hum." width="80" height="80" />
+    <p className="size-16"><em>{tempText}</em></p>
+    <p className="size-16"><em>{hum} %</em></p>
   </div>
 </div>
 

@@ -8,14 +8,13 @@ import {
 
 // Tu configuración de Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyB-nP0BV0qwgK4tE_dMi2W2cihn8Z7rldQ",
-  authDomain: "proyectoinvernadero-14daf.firebaseapp.com",
-  databaseURL: "https://proyectoinvernadero-14daf-default-rtdb.firebaseio.com",
-  projectId: "proyectoinvernadero-14daf",
-  storageBucket: "proyectoinvernadero-14daf.appspot.com",
-  messagingSenderId: "690797436592",
-  appId: "1:690797436592:web:42a62d8fc5e37a2d062575",
-  measurementId: "G-F8XJD7YVV6",
+  apiKey: "AIzaSyD0iTuSuPCzE-SOTKwIupNgxJxD8NWQib0",
+  authDomain: "project-iot-adc04.firebaseapp.com",
+  projectId: "project-iot-adc04",
+  storageBucket: "project-iot-adc04.appspot.com",
+  messagingSenderId: "505111473711",
+  appId: "1:505111473711:web:8a9b0accfb177999a2a0da",
+  measurementId: "G-LHJE3PD5JM"
 };
 
 // Inicializa Firebase
