@@ -157,26 +157,16 @@ void setup()
 void loop()
 {
 
-    // Firebase.ready() should be called repeatedly to handle authentication tasks.
-
+    // Cada 1 minuto hara el siguiente ciclo
     if (Firebase.ready() && (millis() - dataMillis > 60000 || dataMillis == 0))
     {
         dataMillis = millis();
-
-        // For the usage of FirebaseJson, see examples/FirebaseJson/BasicUsage/Create_Edit_Parse/Create_Edit_Parse.ino
         FirebaseJson content;
 
-        // Note: If new document created under non-existent ancestor documents, that document will not appear in queries and snapshot
-        // https://cloud.google.com/firestore/docs/using-console#non-existent_ancestor_documents.
-
-        // We will create the document in the parent path "a0/b?
-        // a0 is the collection id, b? is the document id in collection a0.
-
+        //Definimos el nombre de documento en la base de datos
         String documentPath = "Lechuga";
 
-        // If the document path contains space e.g. "a b c/d e f"
-        // It should encode the space as %20 then the path will be "a%20b%20c/d%20e%20f"
-
+        //Leemos los datos del DHT
         DHT.read(DHT11_PIN);
         float h = DHT.humidity; //Se lee la humedad
         float t = DHT.temperature; //Se lee la temperatura
@@ -186,14 +176,6 @@ void loop()
         Serial.println("Temperatura: ");
         Serial.println(t);
 
-        // Caso de tomates
-        if ((t < 16 || t > 27) || (h < 60 || h > 70)) {
-            Serial.print("Alarma--------------- ");
-            digitalWrite(LED, HIGH); // Enciende LED para alarma
-        } else {
-            digitalWrite(LED, LOW); // Apaga LED si no hay alarma
-        }
-
         // Caso de lechugas
         if ((t < 10 || t > 24) || (h < 50 || h > 70)) {
             Serial.print("Alarma--------------- ");
@@ -201,35 +183,18 @@ void loop()
         } else {
             digitalWrite(LED, LOW); // Apaga LED si no hay alarma
         }
-
-        // Caso de zapallo
-        if ((t < 18 || t > 32) || (h < 60 || h > 80)) {
-            Serial.print("Alarma--------------- ");
-            digitalWrite(LED, HIGH); // Enciende LED para alarma
-        } else {
-            digitalWrite(LED, LOW); // Apaga LED si no hay alarma
-        }
-
-        // Caso de papas
-        if ((t < 10 || t > 22) || (h < 80 || h > 90)) {
-            Serial.print("Alarma--------------- ");
-            digitalWrite(LED, HIGH); // Enciende LED para alarma
-        } else {
-            digitalWrite(LED, LOW); // Apaga LED si no hay alarma
-        }
-        
-        // integer
-        content.set("fields/alive/doubleValue", millis()/60000);
-        content.set("fields/temperature/integerValue", String(DHT.temperature));
-        content.set("fields/humidity/integerValue", String(DHT.humidity));
+        // Se asignan a un FirebaseJson lo siguiente
+        content.set("fields/alive/doubleValue", millis()/60000); //Nos indica cuantas veces ha mandado un dato a la base de datos     - alive
+        content.set("fields/temperature/integerValue", String(DHT.temperature)); //Temperatura                                        - temperature
+        content.set("fields/humidity/integerValue", String(DHT.humidity)); //Humedad                                                  - humidity
 
         String doc_path = "projects/";
         doc_path += FIREBASE_PROJECT_ID;
-        doc_path += "/databases/(default)/documents/coll_id/doc_id"; // coll_id and doc_id are your collection id and document id
+        doc_path += "/databases/(default)/documents/coll_id/doc_id"; // Creamos la ruta en donde almacenaremos en firestore
 
         Serial.print("Create a document... ");
 
-        if (Firebase.Firestore.createDocument(&fbdo, FIREBASE_PROJECT_ID, "" /* databaseId can be (default) or empty */, documentPath.c_str(), content.raw()))
+        if (Firebase.Firestore.createDocument(&fbdo, FIREBASE_PROJECT_ID, "" , documentPath.c_str(), content.raw())) //Creamos nuestro documento
             Serial.printf("ok\n%s\n\n", fbdo.payload().c_str());
         else
             Serial.println(fbdo.errorReason());
